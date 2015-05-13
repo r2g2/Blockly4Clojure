@@ -64,7 +64,7 @@ Blockly.Clojure['text_length'] = function(block) {
   // String length.
   var argument0 = Blockly.Clojure.valueToCode(block, 'VALUE',
       Blockly.Clojure.ORDER_NONE) || '\"\"';
-  return ['(.length " + argument0  ')', Blockly.Clojure.ORDER_NONE];
+  return ['(.length ' + argument0  + ')', Blockly.Clojure.ORDER_NONE];
 };
 
 Blockly.Clojure['text_isEmpty'] = function(block) {
@@ -116,7 +116,7 @@ Blockly.Clojure['text_charAt'] = function(block) {
     default:
       throw 'Unhandled option (text_charAt).';
   }
-  code = '(.charAt ' + text + ' ' + at ')';
+  code = '(.charAt ' + text + ' ' + at + ')';
   return [code, Blockly.Clojure.ORDER_NONE];
 };
 

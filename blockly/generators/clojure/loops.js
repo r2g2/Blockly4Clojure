@@ -78,7 +78,7 @@ Blockly.Clojure['controls_for'] = function(block) {
       Blockly.Clojure.ORDER_ASSIGNMENT) || '1';
   var branch = Blockly.Clojure.statementToCode(block, 'DO');
   branch = Blockly.Clojure.addLoopTrap(branch, block.id);
-  return '(for [' + variable0 ' (range ' + argument0 + ' ' + argument1  + ' ' +increment + ')]\n' + branch + '\n)';
+  return '(for [' + variable0 + ' (range ' + argument0 + ' ' + argument1  + ' ' +increment + ')]\n' + branch + '\n)';
 };
 
 Blockly.Clojure['controls_forEach'] = function(block) {
