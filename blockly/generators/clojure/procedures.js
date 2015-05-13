@@ -73,7 +73,7 @@ Blockly.Clojure['procedures_callreturn'] = function(block) {
   var args = [];
   for (var x = 0; x < block.arguments_.length; x++) {
     args[x] = Blockly.Clojure.valueToCode(block, 'ARG' + x,
-        Blockly.Clojure.ORDER_NONE) || 'null';
+        Blockly.Clojure.ORDER_NONE) || 'nil';
   }
   var code = '(' + funcName + ' ' + args.join(' ') + ')';
   return [code, Blockly.Clojure.ORDER_NONE];
@@ -86,9 +86,9 @@ Blockly.Clojure['procedures_callnoreturn'] = function(block) {
   var args = [];
   for (var x = 0; x < block.arguments_.length; x++) {
     args[x] = Blockly.Clojure.valueToCode(block, 'ARG' + x,
-        Blockly.Clojure.ORDER_NONE) || 'null';
+        Blockly.Clojure.ORDER_NONE) || 'nil';
   }
-  var code = funcName + '(' + args.join(', ') + ');\n';
+  var code = '(' + funcName + ' ' + args.join(' ') + ')\n';
   return code;
 };
 
@@ -99,7 +99,7 @@ Blockly.Clojure['procedures_ifreturn'] = function(block) {
   var code = '(if ' + condition + '\n';
   if (block.hasReturnValue_) {
     var value = Blockly.Clojure.valueToCode(block, 'VALUE',
-        Blockly.Clojure.ORDER_NONE) || 'null';
+        Blockly.Clojure.ORDER_NONE) || 'nil';
     code += ' ' + value + '\n';
   } else {
     code += ' \n';

@@ -48,7 +48,7 @@ Blockly.Clojure['lists_create_with'] = function(block) {
 Blockly.Clojure['lists_repeat'] = function(block) {
   // Create a list with one element repeated.
   var argument0 = Blockly.Clojure.valueToCode(block, 'ITEM',
-      Blockly.Clojure.ORDER_NONE) || 'null';
+      Blockly.Clojure.ORDER_NONE) || 'nil';
   var argument1 = Blockly.Clojure.valueToCode(block, 'NUM',
       Blockly.Clojure.ORDER_NONE) || '0';
   var code = '(take ' + argument1 + ' (repeat ' + argument0 + '))';

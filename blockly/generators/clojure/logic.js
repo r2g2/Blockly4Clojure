@@ -28,19 +28,19 @@ goog.provide('Blockly.Clojure.logic');
 
 goog.require('Blockly.Clojure');
 
-
+//should use (if cond x (if cond1 x1 (...))) instead?
 Blockly.Clojure['controls_if'] = function(block) {
   // If/elseif/else condition.
   var n = 0;
   var argument = Blockly.Clojure.valueToCode(block, 'IF' + n,
       Blockly.Clojure.ORDER_NONE) || 'false';
   var branch = Blockly.Clojure.statementToCode(block, 'DO' + n);
-  var code = '(cond (' + argument + ')' + branch + ' ';
+  var code = '(cond ' + argument + ' ' + branch + ' ';
   for (n = 1; n <= block.elseifCount_; n++) {
     argument = Blockly.Clojure.valueToCode(block, 'IF' + n,
         Blockly.Clojure.ORDER_NONE) || 'false';
     branch = Blockly.Clojure.statementToCode(block, 'DO' + n);
-    code += ' (' + argument + ')' + branch + ' ';
+    code += ' ' + argument + ' ' + branch + ' ';
   }
   if (block.elseCount_) {
     branch = Blockly.Clojure.statementToCode(block, 'ELSE');
@@ -52,7 +52,7 @@ Blockly.Clojure['controls_if'] = function(block) {
 Blockly.Clojure['logic_compare'] = function(block) {
   // Comparison operator.
   var OPERATORS = {
-    'EQ': '==',
+    'EQ': '=', // '==' ?
     'NEQ': 'not=',
     'LT': '<',
     'LTE': '<=',

@@ -36,7 +36,7 @@ Blockly.Clojure['controls_repeat'] = function(block) {
   branch = Blockly.Clojure.addLoopTrap(branch, block.id);
   var loopVar = Blockly.Clojure.variableDB_.getDistinctName(
       'count', Blockly.Variables.NAME_TYPE);
-  var code = '(dotimes [' + loopVar + ' repeats ] ' +  branch + ')\n';
+  var code = '(dotimes [' + loopVar + ' ' + repeats + '] ' +  branch + ')\n';
   return code;
 };
 
@@ -48,7 +48,7 @@ Blockly.Clojure['controls_repeat_ext'] = function(block) {
   branch = Blockly.Clojure.addLoopTrap(branch, block.id);
   var loopVar = Blockly.Clojure.variableDB_.getDistinctName(
       'count', Blockly.Variables.NAME_TYPE);
-  var code = '(dotimes [' + loopVar + ' repeats ] ' +  branch + ')\n';
+  var code = '(dotimes [' + loopVar + ' ' + repeats + '] ' +  branch + ')\n';
   return code;
 };
 

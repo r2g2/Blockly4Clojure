@@ -42,5 +42,5 @@ Blockly.Clojure['variables_set'] = function(block) {
       Blockly.Clojure.ORDER_NONE) || '0';
   var varName = Blockly.Clojure.variableDB_.getName(
       block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
-  return '(def ' + varName + ' ' + argument0 + ')\n';
+  return '(def ' + varName + ' ' + argument0 + ')\n'; //reset!?
 };

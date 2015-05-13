@@ -163,10 +163,10 @@ Blockly.Clojure['math_number_property'] = function(block) {
       code = '(.isProbablePrime (BigInteger/valueOf ' + number_to_check + ') 5)';
       break;
     case 'EVEN':
-      code = '(even? ' + number_to_check + ')';
+      code = '(and (integer? ' + number_to_check + ') (even? ' + number_to_check + '))';
       break;
     case 'ODD':
-      code = '(odd? ' + number_to_check + ')';
+      code = '(and (integer? ' + number_to_check + ') (odd? ' + number_to_check + '))';
       break;
     case 'WHOLE':
       code = '(integer? ' +  number_to_check + ')';
@@ -188,12 +188,11 @@ Blockly.Clojure['math_number_property'] = function(block) {
 
 Blockly.Clojure['math_change'] = function(block) {
   // Add to a variable in place.
-  //var argument0 = Blockly.Clojure.valueToCode(block, 'DELTA',
-  //    Blockly.Clojure.ORDER_NONE) || '0';
-  //var varName = Blockly.Clojure.variableDB_.getName(
-  //    block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
-  //return '(reset! ' + varName + '(+ @' + varName + ' ' + argument0 + '))';
-  throw 'Unsupported block in Clojure (math_change).';
+  var argument0 = Blockly.Clojure.valueToCode(block, 'DELTA',
+      Blockly.Clojure.ORDER_NONE) || '0';
+  var varName = Blockly.Clojure.variableDB_.getName(
+      block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
+  return '(def ' + varName + '(+ ' + varName + ' ' + argument0 + '))'; //reset! ?
 };
 
 // Rounding functions have a single operand.
