@@ -56,7 +56,7 @@ Blockly.Clojure['controls_whileUntil'] = function(block) {
   // Do while/until loop.
   var until = block.getFieldValue('MODE') == 'UNTIL';
   var argument0 = Blockly.Clojure.valueToCode(block, 'BOOL',
-      until ? Blockly.Clojure.ORDER_LOGICAL_NOT :
+      until ? Blockly.Clojure.ORDER_NONE :
       Blockly.Clojure.ORDER_NONE) || 'false';
   var branch = Blockly.Clojure.statementToCode(block, 'DO');
   branch = Blockly.Clojure.addLoopTrap(branch, block.id);
@@ -99,5 +99,5 @@ Blockly.Clojure['controls_forEach'] = function(block) {
 };
 
 Blockly.Clojure['controls_flow_statements'] = function(block) {
-  throw 'Unsupported flow statement in Clojure.';
+  throw 'Unsupported flow statement [controls_flow_statements] in Clojure.';
 };

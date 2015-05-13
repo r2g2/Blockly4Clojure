@@ -31,6 +31,7 @@ goog.require('Blockly.Clojure');
 
 Blockly.Clojure['colour_picker'] = function(block) {
   // Colour picker.
+  // block.getFieldValue('COLOUR') --> #ffffff
   var code = '(java.awt.Color. (Integer/parseInt (subs \"' + block.getFieldValue('COLOUR') + '\" 1) 16))';
   return [code, Blockly.Clojure.ORDER_NONE];
 };
@@ -56,25 +57,18 @@ Blockly.Clojure['colour_rgb'] = function(block) {
 Blockly.Clojure['colour_blend'] = function(block) {
   // Blend two colours together.
   var c1 = Blockly.Clojure.valueToCode(block, 'COLOUR1',
-      Blockly.Clojure.ORDER_NONE) || '\'#000000\'';
+      Blockly.Clojure.ORDER_NONE) || '(java.awt.Color. 0)';
   var c2 = Blockly.Clojure.valueToCode(block, 'COLOUR2',
-      Blockly.Clojure.ORDER_NONE) || '\'#000000\'';
+      Blockly.Clojure.ORDER_NONE) || '(java.awt.Color. 0)';
   var ratio = Blockly.Clojure.valueToCode(block, 'RATIO',
       Blockly.Clojure.ORDER_NONE) || 0.5;
-  var functionName1 = Blockly.Clojure.provideFunction_(
-    'to_rgb',
-    ['(defn ' + Blockly.Clojure.FUNCTION_NAME_PLACEHOLDER_ +
-     ' [c] ',
-     ' (list (.getRed c)',
-     '       (.getGreen c)',
-     '       (.getBlue c)))']);
-
   var functionName2 = Blockly.Clojure.provideFunction_(
       'colour_blend',
       [ '(defn ' + Blockly.Clojure.FUNCTION_NAME_PLACEHOLDER_ +
         '  [c1, c2, ratio] ',
-        '  (let [rgb1 (' + functionName1 + ' c1)',
-        '        rgb2 (' + functionName1 + ' c2)',
+        '  (let [to_rgb (fn [c] (list (.getRed c) (.getGreen c) (.getBlue c))) ',
+        '        rgb1 (to_rgb c1)',
+        '        rgb2 (to_rgb c2)',
         '        ratio1 (- 1 ratio)',
         '        rgb (map #(int (+ (* %1 ratio1) (* %2 ratio))) rgb1 rgb2)',
         '        ] ',

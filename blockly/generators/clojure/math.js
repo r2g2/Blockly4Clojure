@@ -32,7 +32,7 @@ goog.require('Blockly.Clojure');
 Blockly.Clojure['math_number'] = function(block) {
   // Numeric value.
   var code = parseFloat(block.getFieldValue('NUM'));
-  return [code, Blockly.Clojure.ORDER_ATOMIC];
+  return [code, Blockly.Clojure.ORDER_NONE];
 };
 
 Blockly.Clojure['math_arithmetic'] = function(block) {
@@ -104,13 +104,13 @@ Blockly.Clojure['math_single'] = function(block) {
       code = '(Math/floor ' + arg + ')';
       break;
     case 'SIN':
-      code = '(Math.sin (/  (* 180 ' + arg + ') Math/PI))';
+      code = '(Math/sin (/  (* 180 ' + arg + ') Math/PI))';
       break;
     case 'COS':
-      code = '(Math.cos (/  (* 180 ' + arg + ') Math/PI))';
+      code = '(Math/cos (/  (* 180 ' + arg + ') Math/PI))';
       break;
     case 'TAN':
-      code = '(Math.tan (/  (* 180 ' + arg + ') Math/PI))';
+      code = '(Math/tan (/  (* 180 ' + arg + ') Math/PI))';
       break;
   }
   if (code) {
@@ -140,13 +140,13 @@ Blockly.Clojure['math_single'] = function(block) {
 Blockly.Clojure['math_constant'] = function(block) {
   // Constants: PI, E, the Golden Ratio, sqrt(2), 1/sqrt(2), INFINITY.
   var CONSTANTS = {
-    'PI': ['Math/PI', Blockly.Clojure.ORDER_ATOMIC],
-    'E': ['Math/E', Blockly.Clojure.ORDER_ATOMIC],
+    'PI': ['Math/PI', Blockly.Clojure.ORDER_NONE],
+    'E': ['Math/E', Blockly.Clojure.ORDER_NONE],
     'GOLDEN_RATIO':
         ['(/ (+ (Math/sqrt 5) 1) 2)', Blockly.Clojure.ORDER_NONE],
     'SQRT2': ['(Math/sqrt 2)', Blockly.Clojure.ORDER_NONE],
     'SQRT1_2': ['(Math/sqrt 0.5)', Blockly.Clojure.ORDER_NONE],
-    'INFINITY': ['Double/MAX_VALUE', Blockly.Clojure.ORDER_ATOMIC]
+    'INFINITY': ['Double/MAX_VALUE', Blockly.Clojure.ORDER_NONE]
   };
   return CONSTANTS[block.getFieldValue('CONSTANT')];
 };
@@ -155,7 +155,7 @@ Blockly.Clojure['math_number_property'] = function(block) {
   // Check if a number is even, odd, prime, whole, positive, or negative
   // or if it is divisible by certain number. Returns true or false.
   var number_to_check = Blockly.Clojure.valueToCode(block, 'NUMBER_TO_CHECK',
-      Blockly.Clojure.ORDER_ATOMIC) || '0';
+      Blockly.Clojure.ORDER_NONE) || '0';
   var dropdown_property = block.getFieldValue('PROPERTY');
   var code;
   switch (dropdown_property) {
@@ -180,7 +180,7 @@ Blockly.Clojure['math_number_property'] = function(block) {
     case 'DIVISIBLE_BY':
       var divisor = Blockly.Clojure.valueToCode(block, 'DIVISOR',
           Blockly.Clojure.ORDER_NONE) || '0';
-      code = '(== 0 (mod ' + number_to_check + '  ' + divisor + '))';
+      code = '(= 0 (mod ' + number_to_check + '  ' + divisor + '))';
       break;
   }
   return [code, Blockly.Clojure.ORDER_NONE];
@@ -247,9 +247,9 @@ Blockly.Clojure['math_on_list'] = function(block) {
 Blockly.Clojure['math_modulo'] = function(block) {
   // Remainder computation.
   var argument0 = Blockly.Clojure.valueToCode(block, 'DIVIDEND',
-      Blockly.Clojure.ORDER_ATOMIC) || '0';
+      Blockly.Clojure.ORDER_NONE) || '0';
   var argument1 = Blockly.Clojure.valueToCode(block, 'DIVISOR',
-      Blockly.Clojure.ORDER_ATOMIC) || '0';
+      Blockly.Clojure.ORDER_NONE) || '0';
   var code = '(mod ' + argument0 + ' ' + argument1 + ')';
   return [code, Blockly.Clojure.ORDER_NONE];
 };
@@ -257,11 +257,11 @@ Blockly.Clojure['math_modulo'] = function(block) {
 Blockly.Clojure['math_constrain'] = function(block) {
   // Constrain a number between two limits.
   var argument0 = Blockly.Clojure.valueToCode(block, 'VALUE',
-      Blockly.Clojure.ORDER_ATOMIC) || '0';
+      Blockly.Clojure.ORDER_NONE) || '0';
   var argument1 = Blockly.Clojure.valueToCode(block, 'LOW',
-      Blockly.Clojure.ORDER_ATOMIC) || '0';
+      Blockly.Clojure.ORDER_NONE) || '0';
   var argument2 = Blockly.Clojure.valueToCode(block, 'HIGH',
-      Blockly.Clojure.ORDER_ATOMIC) || 'Infinity';
+      Blockly.Clojure.ORDER_NONE) || 'Infinity';
   var code = '(min (max ' + argument0 + ' ' + argument1 + ') ' + argument2 + ')';
   return [code, Blockly.Clojure.ORDER_NONE];
 };
@@ -272,7 +272,7 @@ Blockly.Clojure['math_random_int'] = function(block) {
       Blockly.Clojure.ORDER_NONE) || '0';
   var argument1 = Blockly.Clojure.valueToCode(block, 'TO',
       Blockly.Clojure.ORDER_NONE) || '0';
-  var code = '(+ (min ' + argument0 + ' ' + argument1 + ') (rand-int (Math/abs (- ' + argument0 + ' ' + argument1 + '))))';
+  var code = '(+ (min ' + argument0 + ' ' + argument1 + ') (rand-int (Math/abs (- ' + argument1 + ' ' + argument0 + '))))';
   return [code, Blockly.Clojure.ORDER_NONE];
 };
 

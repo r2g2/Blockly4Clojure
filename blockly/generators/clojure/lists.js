@@ -31,7 +31,7 @@ goog.require('Blockly.Clojure');
 
 Blockly.Clojure['lists_create_empty'] = function(block) {
   // Create an empty list.
-  return ['(list)', Blockly.Clojure.ORDER_ATOMIC];
+  return ['(list)', Blockly.Clojure.ORDER_NONE];
 };
 
 Blockly.Clojure['lists_create_with'] = function(block) {
@@ -42,7 +42,7 @@ Blockly.Clojure['lists_create_with'] = function(block) {
         Blockly.Clojure.ORDER_NONE) || 'null';
   }
   code = '(list ' + code.join(' ') + ')';
-  return [code, Blockly.Clojure.ORDER_ATOMIC];
+  return [code, Blockly.Clojure.ORDER_NONE];
 };
 
 Blockly.Clojure['lists_repeat'] = function(block) {

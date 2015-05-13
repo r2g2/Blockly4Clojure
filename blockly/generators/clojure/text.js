@@ -32,14 +32,14 @@ goog.require('Blockly.Clojure');
 Blockly.Clojure['text'] = function(block) {
   // Text value.
   var code = Blockly.Clojure.quote_(block.getFieldValue('TEXT'));
-  return [code, Blockly.Clojure.ORDER_ATOMIC];
+  return [code, Blockly.Clojure.ORDER_NONE];
 };
 
 Blockly.Clojure['text_join'] = function(block) {
   // Create a string made up of any number of elements of any type.
   var code;
   if (block.itemCount_ == 0) {
-    return ['\"\"', Blockly.Clojure.ORDER_ATOMIC];
+    return ['\"\"', Blockly.Clojure.ORDER_NONE];
   }  {
     code = new Array(block.itemCount_);
     for (var n = 0; n < block.itemCount_; n++) {
@@ -70,7 +70,7 @@ Blockly.Clojure['text_length'] = function(block) {
 Blockly.Clojure['text_isEmpty'] = function(block) {
   // Is the string null?
   var argument0 = Blockly.Clojure.valueToCode(block, 'VALUE',
-      Blockly.Clojure.ORDER_ATOMIC) || '\"\"';
+      Blockly.Clojure.ORDER_NONE) || '\"\"';
   return ['(empty? ' + argument0 + ')', Blockly.Clojure.ORDER_NONE];
 };
 
@@ -82,7 +82,7 @@ Blockly.Clojure['text_indexOf'] = function(block) {
       Blockly.Clojure.ORDER_NONE) || '\"\"';
   var argument1 = Blockly.Clojure.valueToCode(block, 'VALUE',
       Blockly.Clojure.ORDER_NONE) || '\"\"';
-  var code = '(' + operator + ' '  argument1 + ' ' + argument0 + ')';
+  var code = '(' + operator + ' ' + argument1 + ' ' + argument0 + ')';
   return [code, Blockly.Clojure.ORDER_NONE];
 };
 
@@ -161,9 +161,9 @@ Blockly.Clojure['text_getSubstring'] = function(block) {
 Blockly.Clojure['text_changeCase'] = function(block) {
   // Change capitalization.
   var OPERATORS = {
-    'UPPERCASE': 'upper-case',
-    'LOWERCASE': 'lower-case',
-    'TITLECASE': 'capitalize'
+    'UPPERCASE': 'clojure.string\/upper-case',
+    'LOWERCASE': 'clojure.string\/lower-case',
+    'TITLECASE': 'clojure.string\/capitalize'
   };
   var operator = OPERATORS[block.getFieldValue('CASE')];
   // Upper and lower case are functions built into Clojure.
@@ -176,9 +176,9 @@ Blockly.Clojure['text_changeCase'] = function(block) {
 Blockly.Clojure['text_trim'] = function(block) {
   // Trim spaces.
   var OPERATORS = {
-    'LEFT': 'triml',
-    'RIGHT': 'trimr',
-    'BOTH': 'trim'
+    'LEFT': 'clojure.string\/triml',
+    'RIGHT': 'clojure.string\/trimr',
+    'BOTH': 'clojure.string\/trim'
   };
   var operator = OPERATORS[block.getFieldValue('MODE')];
   var argument0 = Blockly.Clojure.valueToCode(block, 'TEXT',
@@ -196,11 +196,7 @@ Blockly.Clojure['text_print'] = function(block) {
 Blockly.Clojure['text_prompt'] = function(block) {
   // Prompt function (internal message).
   var msg = Blockly.Clojure.quote_(block.getFieldValue('TEXT'));
-  var code = '(println ' + msg + ')';
-  var toNumber = block.getFieldValue('TYPE') == 'NUMBER';
-  if (toNumber) {
-    code = code + ' (Float/parseFloat ' msg + ')' ;
-  }
+  var code = '(println ' + msg + ')\n';
   return [code, Blockly.Clojure.ORDER_NONE];
 };
 
@@ -208,10 +204,6 @@ Blockly.Clojure['text_prompt_ext'] = function(block) {
   // Prompt function (external message).
   var msg = Blockly.Clojure.valueToCode(block, 'TEXT',
       Blockly.Clojure.ORDER_NONE) || '\"\"';
-  var code = '(println ' + msg + ')';
-  var toNumber = block.getFieldValue('TYPE') == 'NUMBER';
-  if (toNumber) {
-    code = code + ' (Float/parseFloat ' msg + ')' ;
-  }
+  var code = '(println ' + msg + ')\n';
   return [code, Blockly.Clojure.ORDER_NONE];
 };

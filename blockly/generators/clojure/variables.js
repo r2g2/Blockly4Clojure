@@ -33,16 +33,14 @@ Blockly.Clojure['variables_get'] = function(block) {
   // Variable getter.
   var code = Blockly.Clojure.variableDB_.getName(block.getFieldValue('VAR'),
       Blockly.Variables.NAME_TYPE);
-  //return ['@' + code, Blockly.Clojure.ORDER_ATOMIC];
-  return [code, Blockly.Clojure.ORDER_ATOMIC];
+  return [code, Blockly.Clojure.ORDER_NONE];
 };
 
 Blockly.Clojure['variables_set'] = function(block) {
   // Variable setter.
-  //var argument0 = Blockly.Clojure.valueToCode(block, 'VALUE',
-  //    Blockly.Clojure.ORDER_NONE) || '0';
-  //var varName = Blockly.Clojure.variableDB_.getName(
-  //    block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
-  //return '(reset! ' + varName + ' ' + argument0 + ')\n';
-  throw 'Unsupported block in Clojure (variables_set).';
+  var argument0 = Blockly.Clojure.valueToCode(block, 'VALUE',
+      Blockly.Clojure.ORDER_NONE) || '0';
+  var varName = Blockly.Clojure.variableDB_.getName(
+      block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
+  return '(def ' + varName + ' ' + argument0 + ')\n';
 };

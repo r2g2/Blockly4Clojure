@@ -103,12 +103,12 @@ Blockly.Clojure['logic_negate'] = function(block) {
 Blockly.Clojure['logic_boolean'] = function(block) {
   // Boolean values true and false.
   var code = (block.getFieldValue('BOOL') == 'TRUE') ? 'true' : 'false';
-  return [code, Blockly.Clojure.ORDER_ATOMIC];
+  return [code, Blockly.Clojure.ORDER_NONE];
 };
 
 Blockly.Clojure['logic_null'] = function(block) {
   // Null data type.
-  return ['nil', Blockly.Clojure.ORDER_ATOMIC];
+  return ['nil', Blockly.Clojure.ORDER_NONE];
 };
 
 Blockly.Clojure['logic_ternary'] = function(block) {

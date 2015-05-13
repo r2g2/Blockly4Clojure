@@ -63,11 +63,9 @@ Blockly.Clojure.addReservedWords(
     'recur,set!,eval,when,true,false,reduce,apply,assoc,partial,require');
 
 /**
- * Order of operation ENUMs.
- * https://developer.mozilla.org/en/JavaScript/Reference/Operators/Operator_Precedence
+ * Clojure doesn't care Order
  */
-Blockly.Clojure.ORDER_ATOMIC = 0;         // 0 "" ...
-Blockly.Clojure.ORDER_NONE = 99;          // (...)
+Blockly.Clojure.ORDER_NONE = 0;          // (...)
 
 /**
  * Initialise the database of variable names.
@@ -92,7 +90,7 @@ Blockly.Clojure.init = function(workspace) {
   for (var x = 0; x < variables.length; x++) {
     defvars[x] = '(def ' +
         Blockly.Clojure.variableDB_.getName(variables[x],
-        Blockly.Variables.NAME_TYPE) + ' (atom 0))';
+        Blockly.Variables.NAME_TYPE) + ')';
   }
   Blockly.Clojure.definitions_['variables'] = defvars.join('\n');
 };
@@ -133,7 +131,7 @@ Blockly.Clojure.quote_ = function(string) {
   string = string.replace(/\\/g, '\\\\')
                  .replace(/\n/g, '\\\n')
                  .replace(/'/g, '\\\'');
-  return '\'' + string + '\'';
+  return '\"' + string + '\"';
 };
 
 /**
