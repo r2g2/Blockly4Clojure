@@ -84,7 +84,8 @@ Blockly.Clojure.init = function(workspace) {
   } else {
     Blockly.Clojure.variableDB_.reset();
   }
-
+  //comment out variable declarations to deal with function parameters
+  /*
   var defvars = [];
   var variables = Blockly.Variables.allVariables(workspace);
   for (var x = 0; x < variables.length; x++) {
@@ -93,6 +94,7 @@ Blockly.Clojure.init = function(workspace) {
         Blockly.Variables.NAME_TYPE) + ')';
   }
   Blockly.Clojure.definitions_['variables'] = defvars.join('\n');
+  */
 };
 
 /**
