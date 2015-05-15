@@ -35,17 +35,23 @@ Blockly.Clojure['controls_if'] = function(block) {
   var argument = Blockly.Clojure.valueToCode(block, 'IF' + n,
       Blockly.Clojure.ORDER_NONE) || 'false';
   var branch = Blockly.Clojure.statementToCode(block, 'DO' + n);
-  var code = '(cond ' + argument + ' ' + branch + ' ';
+  var code = '(cond ' + argument + ' (do ' + branch + ' ) \n';
+
   for (n = 1; n <= block.elseifCount_; n++) {
     argument = Blockly.Clojure.valueToCode(block, 'IF' + n,
         Blockly.Clojure.ORDER_NONE) || 'false';
     branch = Blockly.Clojure.statementToCode(block, 'DO' + n);
-    code += ' ' + argument + ' ' + branch + ' ';
+    code += ' ' + argument + ' (do ' + branch + ' ) \n';
   }
+
+
   if (block.elseCount_) {
     branch = Blockly.Clojure.statementToCode(block, 'ELSE');
-    code += ':else ' + branch + ' ';
+    code += ' :else (do ' + branch + ' )\n';
+  } else {
+    code += ' :else nil \n';
   }
+
   return code + ')\n';
 };
 
@@ -63,7 +69,7 @@ Blockly.Clojure['logic_compare'] = function(block) {
   var order = Blockly.Clojure.ORDER_NONE;
   var argument0 = Blockly.Clojure.valueToCode(block, 'A', order) || '0';
   var argument1 = Blockly.Clojure.valueToCode(block, 'B', order) || '0';
-  var code ='(operator ' + argument0 + ' ' + argument1 + ')';
+  var code ='(' + operator + ' ' + argument0 + ' ' + argument1 + ')';
   return [code, order];
 };
 

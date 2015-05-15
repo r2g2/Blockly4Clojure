@@ -57,7 +57,7 @@ Blockly.Clojure['text_append'] = function(block) {
       block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
   var argument0 = Blockly.Clojure.valueToCode(block, 'TEXT',
       Blockly.Clojure.ORDER_NONE) || '\"\"';
-  return '(str' + varName + ' ' + argument0 + ')\n';
+  return '(str ' + varName + ' ' + argument0 + ')\n';
 };
 
 Blockly.Clojure['text_length'] = function(block) {
